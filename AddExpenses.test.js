@@ -35,3 +35,17 @@ test('renders Daily Expense Tracker', () => {
   expect(linkElement).toBeInTheDocument();
 
 });
+
+
+describe('Async Component', () => {
+    test('renders data if request succeeds', async () => {
+      window.fetch = jest.fn();
+      window.fetch.mockResolvedValue({
+        json : async () => [{id : 'p1', title : 'First'}]
+      });
+      render(<AddExpenseDetails/>)
+  
+      const element = await screen.findAllByRole('td');
+      expect(element).not.toHaveLength(0);
+    })
+  })
